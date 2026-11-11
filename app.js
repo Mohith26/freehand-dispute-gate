@@ -16,6 +16,8 @@ const fmtP = (p) => (p < 0.001 ? p.toExponential(1) : p.toFixed(p < 0.01 ? 4 : 3
 const hrs = (h) => (Math.round(h * 100) / 100).toString();
 const day = (d) => `Oct ${d}`;
 const ico = (n) => `<i data-lucide="${n}"></i>`;
+// Freehand's status-pill glyph: a filled four-point spark with a small plus
+const SPARK = '<svg class="spark" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13 4c.55 4.7 3.3 7.45 8 8-4.7.55-7.45 3.3-8 8-.55-4.7-3.3-7.45-8-8 4.7-.55 7.45-3.3 8-8z"/><path d="M5 2.5v4M3 4.5h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
 
 let W = null, R = null, D = null, GATE = null, S = load();
 let sel = -1;              // index into visible rows
@@ -164,7 +166,7 @@ const ST = {
   approve: ['ok', 'check', 'Approved'],
   filed: ['filed', 'send', 'Filed'],
 };
-function pill(s) { const [c, , t] = ST[s]; return `<span class="pill ${c}">${ico('sparkles')}${t}</span>`; }
+function pill(s) { const [c, , t] = ST[s]; return `<span class="pill ${c}">${SPARK}${t}</span>`; }
 function dot(s) { const [c, i] = ST[s]; return `<span class="dot ${c}">${ico(i)}</span>`; }
 
 function visibleRows(r, rows) {
@@ -290,9 +292,9 @@ function openDrawer(id) {
       <div class="fs"><div class="fs-h"><span class="mk"><svg viewBox="0 0 32 32"><g stroke="#fff" stroke-width="3.8" stroke-linecap="round"><path d="M16 6v20M7.3 11l17.4 10M7.3 21l17.4-10"/></g></svg></span>Freehand Summary</div>${story} ${decide}</div>
       <table class="steps" aria-label="Validation steps"><thead><tr><th>Validation step</th><th></th><th style="text-align:right">Value</th></tr></thead><tbody>
         <tr><td>Contract rate</td><td>${pill('approve')}</td><td class="v">${usd(l.a / l.q, 2)} / ${G.UNIT_LABEL[l.t]}</td></tr>
-        <tr><td>Documents on file</td><td><span class="pill rev">${ico('sparkles')}Missing</span></td><td class="v">${l.t === 0 ? 'no gate-out time' : l.t === 1 ? 'no signed receipt' : 'no POD notation'}</td></tr>
-        <tr><td>Charge rate here vs network</td><td>${k.sOcc > 2 ? `<span class="pill bad">${ico('sparkles')}Issue Found</span>` : pill('approve')}</td><td class="v">${pct(facRate, 2)} vs ${pct(netRate, 1)}</td></tr>
-        ${l.t === 0 ? `<tr><td>Billed hours vs peer-supported</td><td>${k.sHours > 3 ? `<span class="pill bad">${ico('sparkles')}Issue Found</span>` : pill('approve')}</td><td class="v">${hrs(l.q)} h vs ${(Math.ceil(k.hb * 4) / 4).toFixed(2)} h</td></tr>` : ''}
+        <tr><td>Documents on file</td><td><span class="pill rev">${SPARK}Missing</span></td><td class="v">${l.t === 0 ? 'no gate-out time' : l.t === 1 ? 'no signed receipt' : 'no POD notation'}</td></tr>
+        <tr><td>Charge rate here vs network</td><td>${k.sOcc > 2 ? `<span class="pill bad">${SPARK}Issue Found</span>` : pill('approve')}</td><td class="v">${pct(facRate, 2)} vs ${pct(netRate, 1)}</td></tr>
+        ${l.t === 0 ? `<tr><td>Billed hours vs peer-supported</td><td>${k.sHours > 3 ? `<span class="pill bad">${SPARK}Issue Found</span>` : pill('approve')}</td><td class="v">${hrs(l.q)} h vs ${(Math.ceil(k.hb * 4) / 4).toFixed(2)} h</td></tr>` : ''}
         <tr><td>Calibration rank (same type)</td><td></td><td class="v">${int(ge)} / ${int(n)} · p ${fmtP(x.p)}</td></tr>
         <tr><td>Decision at ${GATE.alpha * 100}% target</td><td>${pill(x.status)}</td><td class="v">${x.status === 'dispute' ? 'claim ' + usd(x.claim, 2) : ''}</td></tr>
       </tbody></table>
