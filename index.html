@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dispute gate · Freight Audit · Freehand</title>
+  <meta name="description" content="Unofficial concept demo: a dispute gate for Freehand's freight audit agents that auto-disputes grey-zone accessorial charges only at a guaranteed false-dispute rate (conformal p-values + Benjamini-Hochberg).">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23f3600b'/%3E%3Cg stroke='white' stroke-width='3.4' stroke-linecap='round'%3E%3Cpath d='M16 6v20M7.3 11l17.4 10M7.3 21l17.4-10'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fustat:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>window.__errs=[];addEventListener("error",e=>__errs.push(String(e.message)));addEventListener("unhandledrejection",e=>__errs.push(String(e.reason)));</script>
+</head>
+<body>
+  <div class="shell">
+    <aside class="side" aria-label="Primary">
+      <div class="brand">
+        <span class="logo" aria-hidden="true"><svg viewBox="0 0 32 32"><g stroke="#fff" stroke-width="3.4" stroke-linecap="round"><path d="M16 6v20M7.3 11l17.4 10M7.3 21l17.4-10"/></g></svg></span>
+        <span class="word">Freehand</span>
+      </div>
+      <button class="org" type="button" aria-label="Workspace"><span class="org-dot">N</span><span>Northwind Consumer Goods</span><i data-lucide="chevrons-up-down"></i></button>
+      <nav class="nav">
+        <a class="ni" href="#/queue" data-soon><i data-lucide="sparkles"></i>Super Agent</a>
+        <a class="ni" href="#/queue" data-soon><i data-lucide="house"></i>Home</a>
+        <div class="ng">Freight Audit</div>
+        <a class="ni" href="#/queue" data-soon><i data-lucide="file-text"></i>Invoices</a>
+        <a class="ni" href="#/queue" data-soon><i data-lucide="receipt"></i>Charges</a>
+        <a class="ni" href="#/queue" data-soon><i data-lucide="message-square-warning"></i>Disputes</a>
+        <a class="ni active" href="#/queue" aria-current="page"><i data-lucide="shield-check"></i>Dispute gate<span class="new">New</span></a>
+        <div class="ng">Logistics</div>
+        <a class="ni" href="#/queue" data-soon><i data-lucide="warehouse"></i>3PL Contracts</a>
+        <div class="ng">Global Trade</div>
+        <a class="ni" href="#/queue" data-soon><i data-lucide="globe"></i>Entries &amp; Duties</a>
+        <div class="ng">Studio</div>
+        <a class="ni" href="#/queue" data-soon><i data-lucide="sliders-horizontal"></i>Guardrails</a>
+        <a class="ni" href="#/queue" data-soon><i data-lucide="bot"></i>AI Teams</a>
+      </nav>
+      <div class="side-foot">
+        <a class="ni" href="#/queue" data-soon><i data-lucide="settings"></i>Settings</a>
+        <div class="me"><span class="av">MG</span><div><div class="me-n">Mohith G.</div><div class="me-r">Freight Audit Lead</div></div></div>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="top">
+        <div class="crumbs"><span>Freight Audit</span><i data-lucide="chevron-right"></i><span class="cur">Dispute gate</span></div>
+        <div class="top-r">
+          <label class="search"><i data-lucide="search"></i><input id="q" type="search" placeholder="Search charges, invoices, carriers" aria-label="Search charges"><kbd>/</kbd></label>
+          <span class="cycle"><i data-lucide="calendar"></i><span id="cycle">Oct 2026 cycle</span></span>
+          <button class="ib" type="button" aria-label="Notifications" data-soon><i data-lucide="bell"></i></button>
+        </div>
+      </header>
+
+      <main id="app" class="page" tabindex="-1" aria-live="polite"></main>
+      <footer class="foot">Unofficial concept demo by Mohith Gajjela. Not affiliated with Freehand. Synthetic data (fee ranges from public accessorial guides; carriers and facilities fictional). <a href="https://github.com/Mohith26/freehand-dispute-gate">Source and method</a></footer>
+    </div>
+  </div>
+  <div id="drawer" class="drawer" role="dialog" aria-modal="false" aria-label="Charge detail" hidden></div>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

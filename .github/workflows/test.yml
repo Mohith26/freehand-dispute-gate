@@ -1,0 +1,13 @@
+name: test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/generate.mjs && git diff --exit-code data/world.json
+      - run: node scripts/evaluate.mjs && git diff --exit-code data/results.json
+      - run: node --test test/*.test.mjs
