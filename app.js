@@ -169,12 +169,14 @@ const ST = {
 function pill(s) { const [c, , t] = ST[s]; return `<span class="pill ${c}">${SPARK}${t}</span>`; }
 function dot(s) { const [c, i] = ST[s]; return `<span class="dot ${c}">${ico(i)}</span>`; }
 
+const ORDER = { dispute: 0, filed: 1, review: 2, approve: 3 };
+const WHY = { occurrence: 'Charge rare at this DC', hours: 'Hours beyond peers' };
 function visibleRows(r, rows) {
   const q = r.q.trim().toLowerCase();
   return rows
     .filter((x) => r.f === 'all' || statusOf(x) === r.f)
     .filter((x) => !q || [x.l.id, x.l.inv, W.carriers[x.l.c].name, W.facilities[x.l.f].name, G.TYPES[x.l.t]].some((s) => s.toLowerCase().includes(q)))
-    .sort((a, b) => a.p - b.p || b.s - a.s || b.l.a - a.l.a);
+    .sort((a, b) => ORDER[statusOf(a)] - ORDER[statusOf(b)] || b.claim - a.claim || a.p - b.p);
 }
 
 function queueView(r, rows, st) {
@@ -188,7 +190,7 @@ function queueView(r, rows, st) {
       <td>${esc(W.carriers[l.c].name)}</td>
       <td>${esc(W.facilities[l.f].name)}<div class="muted" style="font-size:12px">${day(l.day)}</div></td>
       <td class="num">${usd(l.a, 2)}<div class="muted" style="font-size:12px">${hrs(l.q)} ${G.UNIT_LABEL[l.t]}${l.q === 1 ? '' : 's'}</div></td>
-      <td class="num">${usd(x.exp, 2)}</td>
+      <td class="num">${usd(x.exp, 2)}${s !== 'approve' ? `<div class="muted" style="font-size:12px">${WHY[x.why]}</div>` : ''}</td>
       <td class="num pv">${fmtP(x.p)}</td>
       <td>${pill(s)}${S.showTruth ? ` <span class="pill truth">${l.bad ? esc(l.kind) : 'valid'}</span>` : ''}</td>
     </tr>`;
